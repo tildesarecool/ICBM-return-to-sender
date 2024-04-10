@@ -13,6 +13,8 @@ I was also contemplating if that could work as a turn-based thing like the old g
 
 This is just an exercise though. No idea if I'll ever implement anything.
 
+Also, I need a better title.
+
 ---
 
 So far I've created a *genericShapeTemplate* class that is supposed to make drawing various shapes easier. Or in this case almost entirely lines. There's also a class for rectangles and circles. They're there if I need them.

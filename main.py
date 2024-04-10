@@ -25,13 +25,31 @@ pyg.display.set_caption(
 def main() -> None:
     disp = cmn.dsp # DO NOT MOVE OR COMMENT THIS
 
-    
-    
-    
+##########################################################################################        
+
+    firstLine = objLine()
     
     if pyg.get_init == False:    
         pyg.init()
+
+#    staticy  = 200
+#    startx   = 100
+#    xiterate = 100
+#    yiterate = 200
+#    endx     = 600
+#    endy     = 600
     
+    starty  = 600
+    startx   = 600
+    xiterate = 600
+    yiterate = 600
+    endx     = 100
+    endy     = 200
+
+    pressed = False
+
+
+##########################################################################################    
     while True:
         for event in pyg.event.get():
             if event.type == pyg.QUIT:
@@ -44,9 +62,29 @@ def main() -> None:
         disp.fill(cmn.windowFillColor)
 ##########################################################################################        
 
+        #while startx <= endx:
+        
+        mouse_x, mouse_y = pyg.mouse.get_pos()
+        #print(f"value of mouse_x is {mouse_x} and value of mouse_y is {mouse_y} ")
+        if pyg.mouse.get_pressed()[0] == 1 and pressed == False:
+            clickx = mouse_x
+            clicky = mouse_y
+            print(f"value of clickx is {clickx} and value of clicky is {clicky} ")
+            
+
+        if xiterate > endx or yiterate > endy:
+            firstLine._draw('teal', (startx,starty), (xiterate,yiterate), 5)
+            xiterate -= 1
+            yiterate -= 1
+                #print(f"Inside while loop: value of static y is {yiterate} and value of xiterate is {xiterate} ")
+            #elif xiterate == endx or yiterate == endy:                
+        firstLine._draw('teal', (startx,starty), (xiterate,yiterate), 5)
 
 
-
+        if pyg.mouse.get_pressed()[0] == 1:
+            pressed = True
+        elif pyg.mouse.get_pressed()[0] == 0:
+            pressed = False
 
 ##########################################################################################
         pyg.display.flip()        
