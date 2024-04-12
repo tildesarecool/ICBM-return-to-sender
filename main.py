@@ -87,22 +87,27 @@ def main() -> None:
 
             # x iter > end eg "mouse pos x" ==  "to the right"; y iter < end y eg mouse pos y== "above"
 #            if xiterate >= endx or yiterate <= endy: # diagonal to right or vertical
-            if xiterate <= cmn.screen_rect.width and xiterate >= 0 and yiterate >= 0 and yiterate <= cmn.screen_rect.height:
-                if xiterate != endx or yiterate != endy:
+            if xiterate <= cmn.screen_rect.width \
+           and xiterate >= 0 \
+           and yiterate >= 0 \
+           and yiterate <= cmn.screen_rect.height:
+                
+#                if xiterate != endx and yiterate != endy:
                     
-                    if (cmn.screen_rect.height - endy) >= (cmn.screen_rect.width - endx) :
-                        #if xiterate <= endy:
-                        print(f"endx is {endx} and endy is {endy}")                                    
-                        print(f"(cmn.screen_rect.height - endy) >= (cmn.screen_rect.width - endx)  is {(cmn.screen_rect.height - endy) >= (cmn.screen_rect.width - endx) }")
-                        yiterate -= 1
-                        xiterate += 1
-                    elif (cmn.screen_rect.height - endy) <= (cmn.screen_rect.width - endx):
-                        xiterate -= 1
+#                    if (cmn.screen_rect.height - endy) >= (cmn.screen_rect.width - endx) :
+                    #if xiterate <= endy:
+                print(f"endx is {endx} and endy is {endy}")                                    
+                print(f"(cmn.screen_rect.height - endy) >= (cmn.screen_rect.width - endx)  is {(cmn.screen_rect.height - endy) >= (cmn.screen_rect.width - endx) }")
+                yiterate -= 1
+                xiterate += 1
+                firstLine._draw('teal', (startx,starty), (xiterate,yiterate), 5)
+#                    elif (cmn.screen_rect.height - endy) <= (cmn.screen_rect.width - endx):
+#                        xiterate -= 1
 
                     
                     #print(f"endx is {endx} and endy is {endy}")                                    
-                    firstLine._draw('teal', (startx,starty), (xiterate,yiterate), 5)                                        
-                    gotpressed = 0                    
+                    #firstLine._draw('teal', (startx,starty), (xiterate,yiterate), 5)
+            gotpressed = 0                    
                     #if xiterate >= endx:
                     #    xiterate -= 1                    
                     #if xiterate <= endx:
@@ -204,9 +209,9 @@ def main() -> None:
             #elif xiterate == endx or yiterate == endy:                
 #            else:
 #                gotpressed = 0
-        else:
-            #gotpressed = False
-            firstLine._draw('teal', (startx,starty), (xiterate,yiterate), 5)
+#        else:
+#            #gotpressed = False
+#            firstLine._draw('teal', (startx,starty), (xiterate,yiterate), 5)
             #gotpressed = 0
 
 

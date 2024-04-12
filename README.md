@@ -3,6 +3,16 @@ Inspired by Atari's Missile Command, but simpler and with a twist.
 
 ---
 
+Today I worked for hours without success. I actually came painfully close a couple of times but still not acting the way I want it to.
+
+I eventually move on to making the end point of the line a specific mouse x and y position. I mean I capture those points and set them as the end point. The line doesn't actually end at that set of mouse coordinates. 
+
+I'm probably missing something really really obvious. It's be hard to make a line draw iteratively from one point to another. If the 2600 could it without any fancy radians, degrees or vector math than this little Python script should also be able to do that.
+
+The code is a mess at the moment as I have this bad habit of commenting out a black of code at a time and starting somewhat fresh. If you can't read it it's okay as I can't either.
+
+---
+
 This is a generic learn-to-do-things project. Like an exercise by I set my own parameters.
 
 My idea was to model *Missile Command*: lots of lines coming down from the top and player lines traveling upwards to the mouse click end point location.
