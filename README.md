@@ -3,6 +3,14 @@ Inspired by Atari's Missile Command, but simpler and with a twist.
 
 ---
 
+I went through many more iterations of this. Over and over I did this. 
+
+Eventually I realized I needed to maintain the ratio of the x and y. And that the end of the line as its being drawn makes a triangle. So I'm describing a *trigonometry*. The *tangent* more specifically. I'm not sure if it's good or bad it took me so long to arrive at elementary trigonometry.
+
+So I've come to this conclusion but I haven't yet implemented it. At least I have a direction to go in now.
+
+---
+
 Today I worked for hours without success. I actually came painfully close a couple of times but still not acting the way I want it to.
 
 I eventually move on to making the end point of the line a specific mouse x and y position. I mean I capture those points and set them as the end point. The line doesn't actually end at that set of mouse coordinates. 

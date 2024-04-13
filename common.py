@@ -36,8 +36,13 @@ class Common():
             self.AQUA,
         ]
         
-        self.SCREEN_WIDTH = 320 * 3
-        self.SCREEN_HEIGHT = 240 * 3
+        
+        # self.SCREEN_WIDTH = 320 * 3   # resolution of the M5Stack FACES ESP32 Pocket computer i already purchased in 2021. Multiplied by 3.  And also just a fun arbitrary resolution to set.           
+        # self.SCREEN_HEIGHT = 240 * 3  # resolution of the M5Stack FACES ESP32 Pocket computer i already purchased in 2021. Multiplied by 3.  And also just a fun arbitrary resolution to set.       
+        
+        
+        self.SCREEN_WIDTH = 160 * 3         # resolution of the Adafruit PyGamer i already purchased in 2021. Multiplied by 3.             
+        self.SCREEN_HEIGHT = 128 * 3        # resolution of the Adafruit PyGamer i already purchased in 2021. Multiplied by 3.         
         
         self.cellWidth = 50
         self.cellHeight = 50
@@ -45,8 +50,6 @@ class Common():
         self.CENTER_X = self.SCREEN_WIDTH // 2
         self.CENTER_Y = self.SCREEN_HEIGHT // 2
         
-        self.vehicleHeight = self.cellHeight # this was working as 1.5
-
         self.dsp = pyg.display.set_mode(
                 (
                     self.SCREEN_WIDTH, 
