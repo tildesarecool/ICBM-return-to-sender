@@ -11,6 +11,14 @@ So I've come to this conclusion but I haven't yet implemented it. At least I hav
 
 ---
 
+I'm still trying to figure out how to make the line draw from one place to another. I feel like I'm either really close or not any closer than I was. 
+
+I thought I was on to something at one point but I think I must have missed something. I'll keep working on it but also probably work on some other things.
+
+Actually I was able to click once to set off the loop that drew the string but that doesn't work any more. So in that sense I've gone backwards.
+
+---
+
 Today I worked for hours without success. I actually came painfully close a couple of times but still not acting the way I want it to.
 
 I eventually move on to making the end point of the line a specific mouse x and y position. I mean I capture those points and set them as the end point. The line doesn't actually end at that set of mouse coordinates. 

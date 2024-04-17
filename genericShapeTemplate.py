@@ -5,7 +5,7 @@
 # as a basis for a very basic display setup and line/circle draw in in pygame
 
 import pygame as pyg
-from pygame.sprite import Group
+#from pygame.sprite import Group
 from pygame.sprite import Sprite
 from common import Common 
 cmn = Common()
@@ -21,11 +21,11 @@ from abc import ABC, abstractmethod
 
 pyg.init()
 
-dsp = pyg.display.set_mode((1000, 800)) # also known as the "surface"
-clock = pyg.time.Clock()
-FPS = 60
-
-ACCELLERATION = 0.5
+# dsp = pyg.display.set_mode((1000, 800)) # also known as the "surface"
+# clock = pyg.time.Clock()
+#FPS = 60
+#
+#ACCELLERATION = 0.5
 
 class objShape(ABC, Sprite):
     '''A very generic shape class'''
@@ -65,7 +65,7 @@ class GameRect(objShape):
         self.height = height
         
         rect = pyg.Rect(self.xpos, self.ypos, self.width, self.height)
-        pyg.draw.rect(dsp, self.color, rect)
+        pyg.draw.rect(cmn.dsp, self.color, rect)
         
    
 class objCircle(objShape):
@@ -81,7 +81,7 @@ class objCircle(objShape):
         self.centerPoint = centerPoint
         self.radius = radius
 
-        return pyg.draw.circle(dsp, self.color, self.centerPoint, self.radius )
+        return pyg.draw.circle(cmn.dsp, self.color, self.centerPoint, self.radius )
 
 class objLine(objShape):
     def __init__(self):
@@ -102,7 +102,7 @@ class objLine(objShape):
         self.width = width
 
 
-        return pyg.draw.line( dsp, self.color, self.startPos, self.endPos, self.width)
+        return pyg.draw.line( cmn.dsp, self.color, self.startPos, self.endPos, self.width)
         
 
 
