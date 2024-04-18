@@ -11,6 +11,72 @@ So I've come to this conclusion but I haven't yet implemented it. At least I hav
 
 ---
 
+As of last night and some this morning I have the solution to this issue. I wish I could say I entirely understand how it works but truth is not really.
+
+Below is my Right Triangle class, which may have some improper form to it. So don't use this as a model for "good code".
+
+I'm glad I finally got the solution because I don't think I ever would have come up with this on my own. To my own credit I did have to "port" the code to my own class and mke sure it works. That wasn't very hard or time consuming.
+
+I knew it was some kind of trigonometry related something-or-other.
+
+
+
+```Python
+
+class objRightTriangle(objShape):
+    
+    def __init__(self  ) -> None:
+        
+        self.start_point = None
+        self.end_point = None
+        self.drawn_length = 0  # Variable to track the length of the drawn line
+
+
+    def vertices_from_hypotenuse(self, start_x, start_y, end_x, end_y):
+        # this is copy/pasted from gpt and the name is from a prior request about calculation the width and height lines based on
+        # the hypotenuse. seems i've lost the horizontal/verticle lines but kept the method name
+        self.start_point = (start_x, start_y)
+        self.end_point = (end_x, end_y)
+        
+        self.x1 = self.start_point[0]
+        self.y1 = self.start_point[1]
+        
+        self.x2 = self.end_point[0]
+        self.y2 = self.y1
+        
+        self.x3 = self.x2
+        self.y3 = self.end_point[1]
+        
+    def _draw(self, color, thickness, iterator):
+        
+        # seems like a good thing to have in here
+        if self.start_point is None or self.end_point is None:
+            raise ValueError("Start and end points not specified")
+        
+        # Calculate the length of the hypotenuse using math.hypot()
+        #                              start x "x2"         start x "x1"         end y "y2"         end y "y1" 
+        hypotenuse_length = math.hypot(self.end_point[0] - self.start_point[0], self.end_point[1] - self.start_point[1])
+        
+        # Increase the drawn_length by iterator in each iteration actually wanted to do the iterating bit directly from 
+        self.drawn_length += iterator
+        
+        # Calculate the end point of the drawn line based on the drawn_length
+        drawn_end_x = self.start_point[0] + (self.end_point[0] - self.start_point[0]) * (self.drawn_length / hypotenuse_length)
+        drawn_end_y = self.start_point[1] + (self.end_point[1] - self.start_point[1]) * (self.drawn_length / hypotenuse_length)
+        drawn_end_point = (int(drawn_end_x), int(drawn_end_y))
+        
+        # draw the hypotenuse
+        pyg.draw.line(cmn.dsp, color, self.start_point, drawn_end_point, thickness)
+        
+        
+        # If the drawn length exceeds the length of the hypotenuse, stop the animation
+        if self.drawn_length >= hypotenuse_length:
+            self.drawn_length = hypotenuse_length
+
+```
+
+---
+
 This might just be me failing basic trigonometry again, but I just solved a mystery of why something wasn't working. 
 
 So I created a problem, found that there was a problem, then managed to resolve the problem I created. And now I'm making note of it like it was an accomplishment.

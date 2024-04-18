@@ -90,11 +90,16 @@ def main() -> None:
 
     RighttriangleOne = objRightTriangle()
     
-    RighttriangleOne.vertices(cmn.CENTER_X, cmn.CENTER_Y, 150  )
-    yiterate = RighttriangleOne.start_point[1]
+    RighttriangleOne.vertices_from_hypotenuse(
+        cmn.screen_rect.left + 50, 
+        cmn.screen_rect.bottom - 100, 
+        cmn.CENTER_X + 100,   
+        cmn.screen_rect.bottom - 250
+    )
+    #yiterate = RighttriangleOne.start_point[1]
     
-    print(f"RighttriangleOne.start_point[0] and RighttriangleOne.start_point[1] are {RighttriangleOne.start_point[0]}, {RighttriangleOne.start_point[1]}")
-    print(f"RighttriangleOne.base_length and RighttriangleOne.height are {RighttriangleOne.base_length}, {RighttriangleOne.height}")
+    #print(f"RighttriangleOne.start_point[0] and RighttriangleOne.start_point[1] are {RighttriangleOne.start_point[0]}, {RighttriangleOne.start_point[1]}")
+    #print(f"RighttriangleOne.base_length and RighttriangleOne.height are {RighttriangleOne.base_length}, {RighttriangleOne.height}")
 #    print(f"yiterate is {yiterate}")
     
 # random idea :
@@ -126,13 +131,32 @@ def main() -> None:
 #                RighttriangleOne.vertices(cmn.SCREEN_WIDTH - 200, cmn.SCREEN_HEIGHT - 10, 75 )
 #                yiterate = RighttriangleOne.start_point[1]
                 #print(f"value of yiterate is {yiterate}, RighttriangleOne.start_point[1] is {RighttriangleOne.start_point[1]}")
-                if yiterate > 100:
-                    yiterate -= 1
-                    print(f"yiterate: {yiterate}")
-                    RighttriangleOne._draw( cmn.GREEN, 0, yiterate) #, 400)
+                #if yiterate > 100:
+                #    yiterate -= 1
+                    #print(f"yiterate: {yiterate}")
+                RighttriangleOne._draw( cmn.GREEN, 2, 2) #, 400)
+                
+                pressed = False
                 
                 
-                
+
+
+
+################################ see above #########################################    
+
+        pyg.display.flip()        
+        clock.tick(cmn.FPS)
+
+        pyg.display.set_caption(f"fps: \
+{ round( clock.get_fps(), 2 ) }\
+ - ICBMs" )
+        
+        
+if __name__ == '__main__':
+    main()
+
+
+
                 
                 # these are imaginary line to right/up - just a tracker, not directly used in drawing line                
 #                if xiterate <= cmn.SCREEN_WIDTH and  yiterate >= 0:
@@ -178,24 +202,10 @@ def main() -> None:
 #
 #                    
 #            #mouse_release = False
-                pressed = False
+
 #            firstLine = objLine()
 #            print(f"mouse button pressed.")
 #            firstLine._draw('teal', start_coords, (xiterate, yiterate), 5)
-
-################################ see above #########################################    
-
-        pyg.display.flip()        
-        clock.tick(cmn.FPS)
-
-        pyg.display.set_caption(
-            f"fps: { round( clock.get_fps(), 2 ) } - ICBMs" )
-        
-        
-if __name__ == '__main__':
-    main()
-
-
 
 
 
