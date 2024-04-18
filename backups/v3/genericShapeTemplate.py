@@ -7,7 +7,6 @@
 import pygame as pyg
 #from pygame.sprite import Group
 from pygame.sprite import Sprite
-import math
 from common import Common 
 cmn = Common()
 
@@ -46,70 +45,51 @@ class objShape(ABC, Sprite):
         self.width = width
 
 
-
-
-
 class objRightTriangle(objShape):
     
     def __init__(self  ) -> None:
         
         self.start_point = None
-        self.end_point = None
-        self.drawn_length = 0  # Variable to track the length of the drawn line
+        self.base_length = None
+        self.height = None
         
-
-    def vertices_from_hypotenuse(self, start_x, start_y, end_x, end_y):
-        # this is copy/pasted from gpt and the name is from a prior request about calculation the width and height lines based on
-        # the hypotenuse. seems i've lost the horizontal/verticle lines but kept the method name
+    def vertices(self, start_x, start_y, base_length):
         self.start_point = (start_x, start_y)
-        self.end_point = (end_x, end_y)
+        self.base_length = base_length
         
-        self.x1 = self.start_point[0]
-        self.y1 = self.start_point[1]
-        
-        self.x2 = self.end_point[0]
-        self.y2 = self.y1
-        
-        self.x3 = self.x2
-        self.y3 = self.end_point[1]
-        
-    def _draw(self, color, thickness, iterator):
-        
-        # seems like a good thing to have in here
-        if self.start_point is None or self.end_point is None:
-            raise ValueError("Start and end points not specified")
-        
-        # Calculate the length of the hypotenuse using math.hypot()
-        #                              start x "x2"         start x "x1"         end y "y2"         end y "y1" 
-        hypotenuse_length = math.hypot(self.end_point[0] - self.start_point[0], self.end_point[1] - self.start_point[1])
-        
-        # Increase the drawn_length by iterator in each iteration actually wanted to do the iterating bit directly from 
-        self.drawn_length += iterator
-        
-        # Calculate the end point of the drawn line based on the drawn_length
-        drawn_end_x = self.start_point[0] + (self.end_point[0] - self.start_point[0]) * (self.drawn_length / hypotenuse_length)
-        drawn_end_y = self.start_point[1] + (self.end_point[1] - self.start_point[1]) * (self.drawn_length / hypotenuse_length)
-        drawn_end_point = (int(drawn_end_x), int(drawn_end_y))
-        
-        # draw the hypotenuse
-        pyg.draw.line(cmn.dsp, color, self.start_point, drawn_end_point, thickness)
+    def _draw(self,  color, thickness, height):
+        ''' 
+        Use parameters from verticies to draw the three lines:
+        startx/starty to startx + base lenghth (x2), y2 = starty
+        x2, (y2 + vertical height) = (x3 = x2) and y3 = that height
+        third line start point = x1/y1
+        third line end point = x3/y3
+        '''    
 
-        # draw base/horizontal        
-#        pyg.draw.line(cmn.dsp, color, 
-#                      (self.x1,self.y1),  
-#                      (self.x2, self.y2)
-#                    )
-#        
-#        # draw height/verticle line
-#        pyg.draw.line(cmn.dsp, color, 
-#                      (self.x2, self.y2),  
-#                      (self.x3, self.y3)
-#                    )
+        # Calculate other vertices
+        end_x = self.start_point[0] + self.base_length
+        end_y = self.start_point[1]
+        end_point = (end_x, end_y)
         
+        x1 = self.start_point[0]
+        y1 = self.start_point[1]
         
-        # If the drawn length exceeds the length of the hypotenuse, stop the animation
-        if self.drawn_length >= hypotenuse_length:
-            self.drawn_length = hypotenuse_length
+        x2 = self.start_point[0] + self.base_length
+        y2 = y1
+        
+        x3 = x2
+        y3 = height
+
+        third_point = (end_x, height)
+        
+        hype_start_pos = (x1, y1)
+        hype_end_pos = (x3, y3)
+        
+        # Draw lines
+        pyg.draw.line(cmn.dsp, color, self.start_point, end_point, thickness) # Base/horizontal
+        pyg.draw.line(cmn.dsp, color, end_point, third_point, thickness) # height/vertical
+        pyg.draw.line(cmn.dsp, color, hype_start_pos, hype_end_pos, 2) # diagonal / hypotenuse 
+
 
 
 
@@ -256,56 +236,3 @@ class objLine(objShape):
 #            300, 
 #            'yellow', 
 #        ) #._draw()
-
-
-
-# this version "sort of" works. 
-# it starts at the bottom the bottom and the y slowly moves up forming a triangle
-# the hypotenuse still start full length though
-# just kept here for reference posterity or whatever
-
-
-#class objRightTriangle(objShape):
-#    
-#    def __init__(self  ) -> None:
-#        
-#        self.start_point = None
-#        self.base_length = None
-#        self.height = None
-#        
-#    def vertices(self, start_x, start_y, base_length):
-#        self.start_point = (start_x, start_y)
-#        self.base_length = base_length
-#        
-#    def _draw(self,  color, thickness, height):
-#        ''' 
-#        Use parameters from verticies to draw the three lines:
-#        startx/starty to startx + base lenghth (x2), y2 = starty
-#        x2, (y2 + vertical height) = (x3 = x2) and y3 = that height
-#        third line start point = x1/y1
-#        third line end point = x3/y3
-#        '''    
-#
-#        # Calculate other vertices
-#        end_x = self.start_point[0] + self.base_length
-#        end_y = self.start_point[1]
-#        end_point = (end_x, end_y)
-#        
-#        x1 = self.start_point[0]
-#        y1 = self.start_point[1]
-#        
-#        x2 = self.start_point[0] + self.base_length
-#        y2 = y1
-#        
-#        x3 = x2
-#        y3 = height
-#
-#        third_point = (end_x, height)
-#        
-#        hype_start_pos = (x1, y1)
-#        hype_end_pos = (x3, y3)
-#        
-#        # Draw lines
-#        pyg.draw.line(cmn.dsp, color, self.start_point, end_point, thickness) # Base/horizontal
-#        pyg.draw.line(cmn.dsp, color, end_point, third_point, thickness) # height/vertical
-#        pyg.draw.line(cmn.dsp, color, hype_start_pos, hype_end_pos, 2) # diagonal / hypotenuse 
