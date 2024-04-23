@@ -46,19 +46,16 @@ class objShape(ABC, Sprite):
         self.width = width
 
 
-
-
-
-class objRightTriangle(objShape):
+class objCreateProjectile(objShape):
     
     def __init__(self  ) -> None:
         
         self.start_point = None
         self.end_point = None
         self.drawn_length = 0  # Variable to track the length of the drawn line
-        
+        self.reached_end = False
 
-    def vertices_from_hypotenuse(self, start_x, start_y, end_x, end_y):
+    def createVertices(self, start_x, start_y, end_x, end_y):
         # this is copy/pasted from gpt and the name is from a prior request about calculation the width and height lines based on
         # the hypotenuse. seems i've lost the horizontal/verticle lines but kept the method name
         self.start_point = (start_x, start_y)
@@ -93,23 +90,13 @@ class objRightTriangle(objShape):
         
         # draw the hypotenuse
         pyg.draw.line(cmn.dsp, color, self.start_point, drawn_end_point, thickness)
-
-        # draw base/horizontal        
-#        pyg.draw.line(cmn.dsp, color, 
-#                      (self.x1,self.y1),  
-#                      (self.x2, self.y2)
-#                    )
-#        
-#        # draw height/verticle line
-#        pyg.draw.line(cmn.dsp, color, 
-#                      (self.x2, self.y2),  
-#                      (self.x3, self.y3)
-#                    )
-        
         
         # If the drawn length exceeds the length of the hypotenuse, stop the animation
         if self.drawn_length >= hypotenuse_length:
             self.drawn_length = hypotenuse_length
+            self.reached_end = True
+            
+        return self.reached_end
 
 
 
