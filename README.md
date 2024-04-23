@@ -3,9 +3,9 @@ Inspired by Atari's Missile Command, but simpler and with a twist.
 
 ---
 
-I was trying to make the line draw from the starting position which is always the same to the x/y position of the mouse upon left-click. I actually had the working earlier in development. Then some work with calculating tangents was done, yada-yada-yada, it doesn't work any more any more.
+I was trying to make the line draw from the starting position which is always the same to the x/y position of the mouse upon left-click. I actually had the working earlier in development. Then some work with calculating tangents was done, yada-yada-yada, it doesn't work any more.
 
-I can at least have the line stop drawing when it reaches the mouse. I mean you have to still hold the mouse button instead of just clicking. But technically it works. Exception once it reaches the mouse there's no way to start a new line unless your quit and re-run it.
+I can at least have the line stop drawing when it reaches the mouse. I mean you have to still hold the mouse button instead of just clicking. But technically it works. Except once it reaches the mouse there's no way to start a new line unless your quit and re-run it.
 
 The state it's currently in I was trying to make the line start over at the start point but instead it seems to have some kind of strobe effect already drawn to the mouse. So I still have more work to do.
 
