@@ -4,109 +4,52 @@
 # over some period of time rather than instantly
 # And eventually make the mouse click location
 # be the starting point
-# 
+#  
+# 18 April 2024
+# Took a while, but i can now draw lines from an aribitrary start point
+# to an arbitrary end point. The main task left is to make that end point 
+# the captured mouse x/y coords. I've already done that once though so that 
+# shouldn't take so long.
 
 
-import math
 from common import Common 
 cmn = Common()
 
 import pygame as pyg
 pyg.init()
 
-
-from genericShapeTemplate import objLine, objRightTriangle #,  GameRect
+from genericShapeTemplate import objCreateProjectile #,  GameRect
 
 clock = pyg.time.Clock()
-
-
-
-
-
 
 def main() -> None:
     disp = cmn.dsp # DO NOT MOVE OR COMMENT THIS
 
 ################################ see below #########################################    
 
-    firstLine = objLine()
-    xtrackLine = objLine()
-    ytrackLine = objLine()
-    
+#    firstLine = objLine()
+#    xtrackLine = objLine()
+#    ytrackLine = objLine()
 
-    
     pressed = False
 
-#    staticy  = 200
-#    startx   = 100
-#    xiterate = 100
-#    yiterate = 200
-#    endx     = 600
-#    endy     = 600
-    
-    start_coords = (75, cmn.SCREEN_HEIGHT - 10)
-    
-#    startx  = 50    # cmn.screen_rect.centerx
-#    starty  = cmn.SCREEN_HEIGHT - 10
-    final_coords = ( cmn.SCREEN_WIDTH - 10, 100 )
 
     mouse_release = False       
-    xiterate: float # = start_coords[0] # = 1 
-    
-    
 
-
+    RighttriangleOne = objCreateProjectile()
     
-    ylonger = False
-    xlonger = False
-    target_ratio: float = 0
-    
-    current_x: float = 75
-    current_y: float = cmn.SCREEN_HEIGHT - 10
-    #print(f"current_x, current_y is {current_x}, {current_y}")
-    #print(f"type of: current_x, current_y is {type(current_x)}, {type(current_y)}")
-    
-    
-#    current_coords = (xiterate, yiterate)
-#    endx = startx    #: int     #= 100
-#    endy = starty    #: int     #= 200
-#    is_drawing = False
-    draw_speed = 1
- 
-    # Calculate the length of the hypotenuse (line) - total length of the line
-    hypotenuse_final = math.hypot(final_coords[0] - start_coords[0], start_coords[1] - final_coords[1])
-#    hypotenuse_halved = int(hypotenuse_length / 2)
-
-    # Determine which side is longer (adjacent or opposite)
-    if final_coords[0] - start_coords[0] >= start_coords[1] - final_coords[1]: # x is longer side
-        longer_side = final_coords[0] - start_coords[0]
-        target_ratio = final_coords[0] / final_coords[1]
-        xlonger = True
-    else:
-        longer_side = start_coords[1] - final_coords[1] # y is longer side
-        target_ratio = final_coords[1] / final_coords[0]
-        ylonger = True
-        
-
-    RighttriangleOne = objRightTriangle()
-    
-    RighttriangleOne.vertices_from_hypotenuse(
+    RighttriangleOne.createVertices(
         cmn.screen_rect.left + 50, 
         cmn.screen_rect.bottom - 100, 
         cmn.CENTER_X + 100,   
         cmn.screen_rect.bottom - 250
     )
-    #yiterate = RighttriangleOne.start_point[1]
     
-    #print(f"RighttriangleOne.start_point[0] and RighttriangleOne.start_point[1] are {RighttriangleOne.start_point[0]}, {RighttriangleOne.start_point[1]}")
-    #print(f"RighttriangleOne.base_length and RighttriangleOne.height are {RighttriangleOne.base_length}, {RighttriangleOne.height}")
-#    print(f"yiterate is {yiterate}")
-    
-# random idea :
-# take the ratio of "final destination" x/y by dividing x by y
-# then make the current end point of the line as it increases set to x / y
-# ok i haven't entirely fleshed that idea out yet
-# but that's the basic premise
+    gotpressed = 1
+    click_x: int = 0
+    click_y: int = 0
+    draw_line = False
+
 ################################ see above #########################################    
     while True:
         
@@ -117,31 +60,41 @@ def main() -> None:
             elif event.type == pyg.KEYDOWN and event.key == pyg.K_q:
                 pyg.quit()
                 return
-            elif event.type ==  pyg.MOUSEBUTTONUP and event.button == 1:
-                mouse_release = True
+#            elif event.type ==  pyg.MOUSEBUTTONUP and event.button == 1:
+#                mouse_release = True
 
         disp.fill(cmn.windowFillColor)
 ################################ see below #########################################    
-
-            
+        mouse_x, mouse_y = pyg.mouse.get_pos()
         if pyg.mouse.get_pressed()[0] == 1 and pressed == False:
-            if mouse_release:
-                pressed = True
-                
-#                RighttriangleOne.vertices(cmn.SCREEN_WIDTH - 200, cmn.SCREEN_HEIGHT - 10, 75 )
-#                yiterate = RighttriangleOne.start_point[1]
-                #print(f"value of yiterate is {yiterate}, RighttriangleOne.start_point[1] is {RighttriangleOne.start_point[1]}")
-                #if yiterate > 100:
-                #    yiterate -= 1
-                    #print(f"yiterate: {yiterate}")
-                RighttriangleOne._draw( cmn.GREEN, 2, 2) #, 400)
-                
-                pressed = False
-                
-                
+            click_x = mouse_x
+            click_y = mouse_y
+            RighttriangleOne.end_point = (int(click_x), int(click_y))
+            if draw_line == False:
+                draw_line = RighttriangleOne._draw( cmn.GREEN, 2, 2) #, 400)
+                print(f"RighttriangleOne.end_point: {RighttriangleOne.end_point}, (int(click_x), int(click_y)): {(int(click_x), int(click_y))}")
+
+#            if RighttriangleOne.end_point == (int(click_x), int(click_y)):
+            elif draw_line == True:
+                print(f"The line has been drawn.")
+                RighttriangleOne.end_point = RighttriangleOne.start_point
+                draw_line = False
+            #pressed = True
 
 
 
+
+
+
+# this section works. just trying something new            
+#        if pyg.mouse.get_pressed()[0] == 1 and pressed == False:
+#            if mouse_release:
+#                pressed = True
+#                
+#                RighttriangleOne._draw( cmn.GREEN, 2, 2) #, 400)
+#                
+#                pressed = False
+                
 ################################ see above #########################################    
 
         pyg.display.flip()        
