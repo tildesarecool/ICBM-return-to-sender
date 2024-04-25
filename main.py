@@ -60,19 +60,21 @@ def main() -> None:
             elif event.type == pyg.KEYDOWN and event.key == pyg.K_q:
                 pyg.quit()
                 return
-#            elif event.type ==  pyg.MOUSEBUTTONUP and event.button == 1:
-#                mouse_release = True
+            elif event.type ==  pyg.MOUSEBUTTONUP and event.button == 1:
+                mouse_release = True
 
         disp.fill(cmn.windowFillColor)
 ################################ see below #########################################    
         mouse_x, mouse_y = pyg.mouse.get_pos()
-        if pyg.mouse.get_pressed()[0] == 1 and pressed == False:
+        if pyg.mouse.get_pressed()[0] == 1 and mouse_release == True:
             click_x = mouse_x
             click_y = mouse_y
             RighttriangleOne.end_point = (int(click_x), int(click_y))
             if draw_line == False:
                 draw_line = RighttriangleOne._draw( cmn.GREEN, 2, 2) #, 400)
                 print(f"RighttriangleOne.end_point: {RighttriangleOne.end_point}, (int(click_x), int(click_y)): {(int(click_x), int(click_y))}")
+            
+
 
 #            if RighttriangleOne.end_point == (int(click_x), int(click_y)):
             elif draw_line == True:
@@ -80,6 +82,7 @@ def main() -> None:
                 RighttriangleOne.end_point = RighttriangleOne.start_point
                 draw_line = False
             #pressed = True
+                mouse_release = False
 
 
 
